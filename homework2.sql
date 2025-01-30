@@ -25,12 +25,13 @@ group by city
 --3.4. Показать фио сотрудника (одна колонка) и сумму всех его заказов 
 select t1.last_name, sum("Итоговый чек")
 from
-(select e.last_name, o.order_id, sum(o_d.unit_price * o_d.quantity * (1 - o_d.discount))::Decimal(10,2)as "Итоговый чек"
-from employees e 
+	(
+	select e.last_name, o.order_id, sum(o_d.unit_price * o_d.quantity * (1 - o_d.discount))::Decimal(10,2)as "Итоговый чек"
+	from employees e 
 	join orders o on  e.employee_id = o.employee_id
- 	join order_details o_d on o.order_id =o_d.order_id
-group by e.last_name, o.order_id
-order by e.last_name
+	join order_details o_d on o.order_id =o_d.order_id
+	group by e.last_name, o.order_id
+	order by e.last_name
 ) as t1 
 group by t1.last_name
 
@@ -38,8 +39,8 @@ group by t1.last_name
 --Вариант 2 с использованием view final_check из п.3.2
 select e.last_name, sum("Итоговый чек")
 from employees e 
-	join orders o on  e.employee_id = o.employee_id
- 	join final_check f on o.order_id =f.order_id
+join orders o on  e.employee_id = o.employee_id
+join final_check f on o.order_id =f.order_id
 group by e.last_name 
 order by e.last_name
 
