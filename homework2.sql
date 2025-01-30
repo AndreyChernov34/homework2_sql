@@ -35,7 +35,6 @@ from
 ) as t1 
 group by t1.last_name
 
-
 --Вариант 2 с использованием view final_check из п.3.2
 select e.last_name, sum("Итоговый чек")
 from employees e 
