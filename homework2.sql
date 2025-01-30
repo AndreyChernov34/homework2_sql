@@ -9,7 +9,7 @@ from order_details o
 group by order_id
 order by order_id
 
--- Решил использовать эту выборку для п.3.5 и сохранил как view
+-- Решил использовать эту выборку для п.3.4 и сохранил как view
 create view final_check as (
 select o.order_id, sum(o.unit_price * o.quantity * (1 - o.discount))::Decimal(10,2) as "Итоговый чек"
 from order_details o
